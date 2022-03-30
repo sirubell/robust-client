@@ -50,16 +50,16 @@ namespace client
             try
             {
                 NetworkStream stream = client.GetStream();
-                Byte[] buffer = new Byte[3];
-                String responseData = String.Empty; 
+                Byte[] buffer = new Byte[8];
+                StringBuilder responseData = new StringBuilder(); 
 
                 do
                 {
                     Int32 bytes = stream.Read(buffer, 0, buffer.Length);
-                    responseData += Encoding.ASCII.GetString(buffer, 0, bytes);
+                    responseData.Append(Encoding.ASCII.GetString(buffer, 0, bytes));
                 } while (stream.DataAvailable);
                 
-                Invoke(() => { textBox2.Text = responseData; });
+                Invoke(() => { textBox2.Text = responseData.ToString(); });
             }
             catch (Exception ex)
             {
